@@ -1,0 +1,190 @@
+<html>
+	<head>
+		<title>COMP3322 Assignment3</title>
+		<link rel = "stylesheet" type = "text/css" href="style.css">
+		<link href="//netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+		<script type = "text/javascript">
+
+			lastRecord = 0;
+
+			function showcat(flag){
+			
+				var xmlhttp;
+				
+				if (window.XMLHttpRequest) {
+					xmlhttp = new XMLHttpRequest();
+				} else {
+					xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+				}
+				
+				xmlhttp.onreadystatechange = function () {
+					if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+
+						txt = "<div class=\"row\">";
+						json = JSON.parse(xmlhttp.responseText);
+
+						for(i=0;i<json.cat.length;i++){
+							txt = txt + "<div class=\"col-md-6\">";
+							txt = txt + "<li>" + "<div class=\"cat\" id=" + json.cat[i]["itemID"] + ">";
+							txt = txt + "<h2 id = \"bookname\">"+json.cat[i]["itemName"] + "</h2>";
+							txt = txt + "<div class=\"row\"><div class=\"col-md-6\" id= \"imagepart\">";
+							txt = txt + "<img src="+json.cat[i]["itemImage"] + ">" + "<br/>";
+							txt=txt+"</div><div class=\"col-md-6\" class = \"textpart\" id=" + json.cat[i]["itemID"]+">";
+							txt = txt + "<p id=\"destitle\">Description:</p>";
+							txt = txt + "<p id=\"des\">"+json.cat[i]["itemDescription"] + "</p>"+"<br/>";
+							txt = txt + "<p id = \"price\">"+"Price:  HK$ "+json.cat[i]["itemPrice"]+"</p></br>";
+							txt = txt + "<button id = \"addbook\" class= \"pure-button pure-button-primary\" onclick = \"addToCart(this);Display();\">" + "Add to ShoppingCart" + "</button>";
+							txt = txt + "</div></div></div>" + "</li></div>";
+						}
+						txt=txt+"</div>";
+						if(json.cat.length){
+							var mesgs = document.getElementById("cats");
+							mesgs.innerHTML = txt;
+						}
+					}
+				}
+				if(flag == 0){
+					lastRecord = lastRecord - 4;;
+				}
+					xmlhttp.open("GET", "severProcessing.php?lastRecord=" + lastRecord+"&addflag=0",true);
+					xmlhttp.send();
+					lastRecord += 2;
+			}
+			
+			function addToCart(elem){
+
+				var xmlhttp;
+
+				var oldvalue = elem.innerHTML;
+				var value;
+				var catid = elem.parentNode.getAttribute('id');		
+						
+				if (window.XMLHttpRequest) {
+					xmlhttp = new XMLHttpRequest();
+				} else {
+					xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+				}
+				xmlhttp.open("GET","severProcessing.php?catid="+catid+"&addflag=1", true);
+				xmlhttp.send();
+			}
+			
+			function Display(){
+				var xmlhttp;
+				
+				if (window.XMLHttpRequest) {
+					xmlhttp = new XMLHttpRequest();
+				} else {
+					xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+				}
+				
+				xmlhttp.onreadystatechange = function () {					
+					if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+						txt = "";
+						txt = txt + "<h3 id = \"carttitle\">Your Shopping Cart</h3>" + "<br/>";
+						json = JSON.parse(xmlhttp.responseText);
+						
+						if(json.cat != null){
+							for(i=0;i<json.cat.length;i++){
+								txt = txt + "<div class=\"col-md-12\">";
+								txt = txt + "<li>" + "<div class=\"cartcat\" id=" + json.cat[i]["itemID"] + ">";
+								txt = txt + "<div class=\"row\"><div class=\"col-md-3\" >";
+								txt = txt + "<img id= \"cart_imagepart\" src="+json.cat[i]["itemImage"] + ">" + "<br/>"; 
+								txt = txt+"</div><div class=\"col-md-6\" class = \"cart_textpart\" id=" + json.cat[i]["itemID"]+">";
+								txt = txt + "<h2 id = \"cart_bookname\">"+json.cat[i]["itemName"] + "</h2>";
+								txt = txt + "<p id=\"cart_destitle\">Description:</p>";
+								txt = txt + "<p id=\"cart_des\">"+json.cat[i]["itemDescription"] + "</p>"+"<br/>";
+								txt = txt + "<p id = \"cart_price\">"+"Price:  HK$ "+json.cat[i]["itemPrice"]+"</p>";
+								if(document.getElementById(json.cat[i]["itemID"]+"num")){
+									var num1 = document.getElementById(json.cat[i]["itemID"]+"num").value;
+								}else{
+									var num1 = 1;
+								}
+								txt = txt + "<input id =" + json.cat[i]["itemID"] +"num type = \"text\" name = \"updatenum\" value =" + num1 +"></br></br>";
+								txt = txt + "<button class= \"pure-button pure-button-primary\" onclick = \"update(this)\">" + "Update" + "</button>";
+								txt = txt + "</div></div></div>" + "</li><br/><br/></div>";								
+							}
+						}
+						var mesgs = document.getElementById("display");
+						mesgs.innerHTML = txt;
+					}
+				}	
+				xmlhttp.open("GET", "severProcessing.php?displayflag=1"+"&addflag=0",true);
+				xmlhttp.send();				
+			}
+
+			function update(elem){
+
+				var xmlhttp;
+
+				var cartcatid = elem.parentNode.getAttribute('id');	
+				var num = document.getElementById(cartcatid+"num").value;
+				
+				if (window.XMLHttpRequest) {
+					xmlhttp = new XMLHttpRequest();
+				} else {
+					xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+				}
+				
+				xmlhttp.onreadystatechange = function () {					
+					if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+						txt = "";
+						txt = txt + "<h3 id = \"carttitle\">Your Shopping Cart</h3>" + "<br/>";
+						json = JSON.parse(xmlhttp.responseText);
+						
+						if(json.cat != null){
+							var len = json.cat.length;
+							for(i=0;i<len;i++){
+								if(json.cat[i] != null){
+									txt = txt + "<div class=\"col-md-12\">";
+									txt = txt + "<li>" + "<div class=\"cartcat\" id=" + json.cat[i]["itemID"] + ">";
+									txt = txt + "<div class=\"row\"><div class=\"col-md-3\" >";
+									txt = txt + "<img id= \"cart_imagepart\" src="+json.cat[i]["itemImage"] + ">" + "<br/>"; 
+									txt = txt+"</div><div class=\"col-md-6\" class = \"cart_textpart\" id=" + json.cat[i]["itemID"]+">";
+									txt = txt + "<h2 id = \"cart_bookname\">"+json.cat[i]["itemName"] + "</h2>";
+									txt = txt + "<p id=\"cart_destitle\">Description:</p>";
+									txt = txt + "<p id=\"cart_des\">"+json.cat[i]["itemDescription"] + "</p>"+"<br/>";
+									txt = txt + "<p id = \"cart_price\">"+"Price:  HK$ "+json.cat[i]["itemPrice"]+"</p>";
+									var num1 = document.getElementById(json.cat[i]["itemID"]+"num").value;
+									txt = txt + "<input id =" + json.cat[i]["itemID"] +"num type = \"text\" name = \"updatenum\" value ="+num1 +"><br/></br>";
+									txt = txt + "<button class= \"pure-button pure-button-primary\" onclick = \"update(this)\">" + "Update" + "</button>";
+									txt = txt + "</div></div></div>" + "</li><br/><br/></div>";		
+						        }									
+							}
+						}
+						var mesgs = document.getElementById("display");
+						mesgs.innerHTML = txt;
+					}
+				}
+				xmlhttp.open("GET","severProcessing.php?cartcatid="+cartcatid+"&updateflag=1"+"&num="+num+"&displayflag=1", true);
+				xmlhttp.send();
+			}
+		</script>
+	</head>
+
+	<body onload = "showcat(1);Display();">
+		<div>
+			<h1 class="title">Online BookStore</h1>
+			<i id = "left" class = "fa fa-arrow-circle-left fa-3x" onclick = "showcat(0)"></i>
+			<i id = "right"class = "fa fa-arrow-circle-right fa-3x" onclick = "showcat(1)"></i>
+		</div>
+		</br>
+		<div>
+			<ul  id = "cats">
+			</ul> 
+		
+		</div>
+		
+		<div>
+			<ul id = "display">
+			</ul>
+			<div id = "checkout">			
+				<a class="pure-button" href="#" onclick = "location.href = 'checkout.php'">
+					<i class="fa fa-shopping-cart fa-lg"></i>
+					Checkout
+				</a>
+			</div>
+		</div>
+	</body>
+</html>

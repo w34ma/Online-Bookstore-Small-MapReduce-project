@@ -1,0 +1,181 @@
+@font-face{
+    font-family: 'Open Sans';
+    src: local('Open Sans Semibold'), local('OpenSans-Semibold'), url(http://themes.googleusercontent.com/static/fonts/opensans/v6/MTP_ySUJH_bn48VBG8sNSqRDOzjiPcYnFooOUGCOsRk.woff) format('woff');
+}
+.title{
+    font-family: 'Open Sans';
+	font-size:60px;
+	font-weight:bold;
+	text-align:center;	
+}
+#left{
+	cursor:pointer;
+	color:#FF6A6A;
+	position: relative;
+	left: 30%;
+	top:5%;
+}
+#right{
+	cursor:pointer;
+	color:#FF6A6A;
+	position: relative;
+	left: 66%;
+	top:5%;
+}
+#checkout{
+	text-align:center;
+	margin-bottom: 20px;
+}
+ul{
+	list-style-type: none;
+}
+#bookname{
+    font-family: 'Open Sans';
+	font-size:25px;
+	font-weight:bold;
+	text-decoration:underline;
+}
+#imagepart{
+	text-align:center;	
+}
+
+.textpart{
+	text-align:center;	
+}
+
+#destitle{
+    font-family: 'Open Sans';
+	font-size:20px;
+	font-weight:bold;
+	text-align: left;
+}
+#des{
+    font-family: 'Open Sans';
+	font-size:15px;
+	text-align: justify;
+}
+#price{
+    font-family: 'Open Sans';
+	font-size:17px;
+	font-weight:bold;
+	text-align: left;
+}
+#addbook{
+	text-align: right;
+	margin-bottom:0px;
+}
+
+/*-----------------------------------------------------------*/
+#carttitle{
+    font-family: 'Open Sans';
+	font-size:30px;
+	font-weight:bold;
+	text-align: left;
+	color:#FF6A6A;
+}
+
+#cart_bookname{
+    font-family: 'Open Sans';
+	font-size:20px;
+	font-weight:bold;
+	text-align: left;
+	margin-top: 0px;
+}
+
+#cart_imagepart{
+	height:250px;
+	width:auto;
+	text-align:right;	
+}
+
+.cart_textpart{
+	text-align:left;	
+}
+
+#cart_destitle{
+    font-family: 'Open Sans';
+	font-size:15px;
+	font-weight:bold;
+	text-align: left;
+}
+
+#cart_des{
+    font-family: 'Open Sans';
+	font-size:12px;
+	text-align: justify;
+}
+
+#cart_price{
+    font-family: 'Open Sans';
+	font-size:12px;
+	font-weight:bold;
+	text-align: left;
+}
+/*-----------------------------------------------------------*/
+#checkouttitle{
+    font-family: 'Open Sans';
+	font-size:40px;
+	font-weight:bold;
+	text-align: left;
+	color:#FF6A6A;
+	margin-left:30px;
+}
+
+#checkout_bookname{
+    font-family: 'Open Sans';
+	font-size:25px;
+	font-weight:bold;
+	text-align: left;
+	margin-top: 0px;
+}
+
+#checkout_imagepart{
+	height:250px;
+	width:auto;
+	text-align:right;
+	margin-left:40px;	
+}
+
+.checkout_textpart{
+	text-align:left;	
+}
+
+#checkout_destitle{
+    font-family: 'Open Sans';
+	font-size:20px;
+	font-weight:bold;
+	text-align: left;
+}
+
+#checkout_des{
+    font-family: 'Open Sans';
+	font-size:13px;
+	text-align: justify;
+}
+
+#checkout_price{
+    font-family: 'Open Sans';
+	font-size:20px;
+	font-weight:bold;
+	text-align: left;
+}
+#totalprice{
+    font-family: 'Open Sans';
+	font-size:20px;
+	font-weight:bold;
+	text-align: left;
+	margin-left:30px;
+}
+#back{
+    font-family: 'Open Sans';
+	font-size:20px;
+	font-weight:bold;
+	text-align: left;
+}
+#conback{
+    font-family: 'Open Sans';
+	font-size:20px;
+	font-weight:bold;
+	text-align: left;
+	margin-left:30px;
+}
